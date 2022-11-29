@@ -1,24 +1,114 @@
-import logo from './logo.svg';
-import './App.css';
+import SignIn from "./components/LogIn";
+import "./App.css";
+import PersistentDrawerLeft from "../src/components/NavBar";
+import React, { Fragment } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomeAdmin from "./components/HomeAdmin";
+import CreateNewUser from "./components/CreateNewUser";
+import NewTeacher from "./components/CreateNewTeacher";
+import { useSelector } from "react-redux";
+
+let router;
 
 function App() {
+  const isLogged = useSelector((state) => state.userData.user);
+  const isAuthentificated = useSelector((state) => state.userData.authentificated);
+  if (isLogged === "admin" && isAuthentificated) {
+    router = createBrowserRouter([
+      {
+        path: "/",
+        element: <SignIn></SignIn>,
+      },
+      {
+        path: "/admin",
+        element: <HomeAdmin />,
+      },
+      {
+        path: "/admin/createUser",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft />
+            <CreateNewUser />
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/userList",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/teacherList",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/createTeacher",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+            <NewTeacher></NewTeacher>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/pomoc",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/kreirajNovost",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/napraviRaspored",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/admin/noviPredmet",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      }
+    ]);
+  } else {
+    router = createBrowserRouter([
+      {
+        path: "/",
+        element: <SignIn></SignIn>,
+      },
+      {
+        path: "*",
+        element: <SignIn></SignIn>,
+      },
+    ]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router}>
+      <Fragment>
+        <div className="divContainer"></div>
+      </Fragment>
+    </RouterProvider>
   );
 }
 

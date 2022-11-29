@@ -1,13 +1,243 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.margin10 {
+  margin: 10px !important;
+}
+
+.center {
+  text-decoration: none;
+  display: flex;
+  color: black;
+  padding: 1rem;
+}
+.center:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+.cardUser {
+  width: 16rem;
+  height: 23rem;
+  margin: 16px;
+  display: grid;
+  align-items: center;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
+  background-color: #e5f6f9;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  border-width: thin;
+  min-height: 16rem;
+}
+.cardUser:hover {
+  box-shadow: 5px 5px 5px #c9c9c9;
+  border-color: #dad7d7;
+  border-style: solid;
+}
+
+.divContainer {
+  width: 100%;
+  height: 4rem;
+  display: grid;
+  background-color: #1976d2;
+  grid-template-columns: 1fr 1fr;
+}
+.img {
+  height: 4rem;
+  background-color: #1976d2;
+}
+.avatar {
+  width: 7rem !important;
+  height: 7rem !important;
+  background-color: #1976d2 !important;
+}
+.marginAuto {
+  margin: auto;
+  justify-content: center;
+}
+
+.sidebarItems {
+  display: grid;
+  justify-content: center;
+}
+
+.succes {
+  color: rgb(0, 182, 0);
+}
+
+.addButton {
+  background-color: #5ece7b;
+  color: white;
+  border-radius: 50%;
+  position: relative;
+  bottom: 1rem;
+  left: 15rem;
+  width: 60px;
+  height: 60px;
+  border: none;
+  font-size: 220%;
+  font-weight: 100;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  display: flex;
+}
+.addButton > :first-child {
+  margin: auto;
+}
+
+.addButton:hover {
+  box-shadow: #c9c9c9 0px 0px 5px 5px;
+  animation: spin 2s linear infinite;
+}
+.createBtn{
+  background-color: #5ece7b;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border: none;
+  font-size: 220%;
+  font-weight: 100;
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+}
+.createBtn:hover {
+  border: solid black thin;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.gridCards {
+  row-gap: 10px;
+  column-gap: 10px;
+}
+.marginLeft5 {
+  margin-left: 5px;
+}
+.centerDiv {
+  justify-content: center;
+  display: block;
+}
+.textArea {
+  width: 100%;
+  resize: none;
+  min-height: 6rem;
+  font-size: large;
+  border: #dbdbdb solid;
+  border-width: thin;
+  font-family: "Arial";
+  padding: 5px;
+  border-radius: 5px;
+}
+.textArea:hover {
+  outline: black solid;
+  outline-width: thin;
+}
+.textArea:focus {
+  border: none;
+  outline: #1976d2 solid;
+  outline-width: 1px;
+}
+.editBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #1976d2;
+  position:absolute;
+  bottom: 3rem;
+  right: 1rem;
+  border: none;
+  justify-content: center;
+  cursor: pointer;
+}
+.editBtn:hover {
+  box-shadow: #c9c9c9 0px 0px 5px 5px;
+  animation: spin 2s linear infinite;
+}
+
+.subjectList{
+  border: solid thin rgb(212, 212, 212);
+  margin-top: 1rem;
+}
+.subjectList > ul {
+  list-style: none;
+  padding: 0%;
+}
+.subjectList > ul> li {
+  padding: 10px;
+  border-top: solid thin rgb(212, 212, 212);
+  border-bottom: solid thin rgb(212, 212, 212);
+}
+.subjectList > ul> :last-child {
+  padding: 10px;
+  border-top: solid thin rgb(212, 212, 212);
+  border-bottom: none;
+  padding-bottom: none !important;
+}
+.rasporedGrid{
+  height: fit-content;
+  min-width: 600px;
+  width: 50%;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-gap: 1px;
+  background-color: black;
+  
+}
+.rasporedGrid > div{
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+}
+.selectSubject{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1px;
+  background-color: black;
+}
+.selectSubject > div {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+}
+.centerDiv{
+  margin: auto;
+}
+@media screen and (max-width: 500px) {
+  .gridCards {
+    justify-content: center;
+  }
 }
