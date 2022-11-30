@@ -3,12 +3,15 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import React, { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
+import { createDoc5 } from "./NavBar";
 
-function SelectAutoWidth() {
+function SelectAutoWidth(props) {
   const [classGrade, setClassGrade] = useState("");
 
   const handleChange = (event) => {
     setClassGrade(event.target.value);
+    props.razred(event.target.value)
+    
   };
 
   return (
@@ -25,10 +28,10 @@ function SelectAutoWidth() {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={1}>1</MenuItem>
-        <MenuItem value={2}>2</MenuItem>
-        <MenuItem value={3}>3</MenuItem>
-        <MenuItem value={4}>4</MenuItem>
+        <MenuItem value="1">1</MenuItem>
+        <MenuItem value="2">2</MenuItem>
+        <MenuItem value="3">3</MenuItem>
+        <MenuItem value="4">4</MenuItem>
       </Select>
     </div>
   );
@@ -68,6 +71,10 @@ const CreateSchedule = (props) => {
     Cetvrtak: [" ", " ", " ", " ", " "],
     Petak: [" ", " ", " ", " ", " "],
   });
+
+  const[razred,setRazred] = useState({razred : ""})
+
+  const[dataSent, setDataSent] = useState(false)
 
   const rasporedChangeHandler = (data, day, position) => {
     if (day === 0) {
@@ -127,10 +134,25 @@ const CreateSchedule = (props) => {
       });
     }
   };
+  const getClass = (razredBroj) => {
+    setRazred({razred : razredBroj})
+   }
+  const submitRaspored = (event) =>{
+    event.preventDefault()
+    let rasporedRazred = {
+      ...raspored,
+      ...razred
+    }
+    console.log(rasporedRazred)
+    createDoc5(rasporedRazred)
+    setDataSent(true)
+  }
+ 
+
   return (
     <div className="centerDiv">
       <h1>Napravi raspored</h1>
-      <SelectAutoWidth></SelectAutoWidth>
+      <SelectAutoWidth razred={getClass}></SelectAutoWidth>
       <div className="rasporedGrid">
         <div>Dan</div>
         <div className="selectSubject">
@@ -306,10 +328,10 @@ const CreateSchedule = (props) => {
           />
         </div>
       </div>
-      <Button variant="outlined" sx={{ width: "100%", marginTop : "20px" }}>
+      <Button onClick={submitRaspored} variant="outlined" sx={{ width: "100%", marginTop : "20px" }}>
         Spremi
       </Button>
-      <h3>Coming soon!</h3>
+      {dataSent && <p className="succes">Uspjesno</p>}
     </div>
   );
 };

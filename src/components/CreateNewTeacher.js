@@ -42,7 +42,6 @@ export default function NewTeacher() {
   const [valueHolderEmail, setValueEmail] = useState()
   const [valueHolderPassword, setValuePassword] = useState()
   const [valueHolderPredmet, setValuePredmet] = useState()
-  const [valueHolderPermisija, setValuePermisija] = useState()
   const [userAdded,setUserAdded] = useState(false)
   const onChangeHandler1 = (event) => {
     setValueName(event.target.value)
@@ -60,14 +59,11 @@ export default function NewTeacher() {
     setValuePredmet(event.target.value)
   
   }
-  const onChangeHandler5 = (event) => {
-    setValuePermisija(event.target.value)
   
-  }
 
   const imePrezimeRef = useRef("");
   const emailRef = useRef("");
-  const permisijaRef = useRef("");
+  
   const predmet1Ref = useRef("");
   const passwordRef = useRef("");
 
@@ -99,7 +95,7 @@ export default function NewTeacher() {
           createDoc2(
             {
               Ime_Prezime: imePrezimeRef.current.value,
-              Permisija: permisijaRef.current.value,
+              Permisija: "Ucitelj",
               Predmet: predmet1Ref.current.value,
               email: emailRef.current.value,
             },
@@ -108,7 +104,6 @@ export default function NewTeacher() {
           setValueName("")
           setValueEmail("")
           setValuePassword("")
-          setValuePermisija("")
           setValuePredmet("")
           setUserAdded(true)
         } else {
@@ -190,16 +185,7 @@ export default function NewTeacher() {
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Permisija"
-                  inputRef={permisijaRef}
-                  value={valueHolderPermisija}
-                  onChange={onChangeHandler5}
-                />
-              </Grid>
+              
               <Grid item xs={12}>
                 <TextField
                   required

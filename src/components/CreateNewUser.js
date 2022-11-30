@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import NewUser from "./NewUserForm";
 
-const CreateNewUser = () => {
+const CreateNewUser = (props) => {
   return (
     <Fragment>
-      <NewUser></NewUser>
+      <NewUser predmeti={props.predmeti}></NewUser>
     </Fragment>
   );
 };

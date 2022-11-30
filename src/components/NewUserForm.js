@@ -15,6 +15,9 @@ import "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 import { createDoc } from "./NavBar";
 
@@ -35,28 +38,25 @@ function Copyright(props) {
     </Typography>
   );
 }
-
 const theme = createTheme();
 
-export default function NewUser() {
-  const [valueHolderName, setValueName] = useState()
-  const [valueHolderEmail, setValueEmail] = useState()
-  const [valueHolderPassword, setValuePassword] = useState()
-  const [valueHolderOpravdani, setValueOpravdani] = useState()
-  const [valueHolderNeopravdani, setValueNeopravdani] = useState()
-  const [valueHolderPermisija, setValuePermisija] = useState()
-  const [valueHolderPredmet1, setValuePredmet1] = useState()
-  const [valueHolderPredmet2, setValuePredmet2] = useState()
-  const [valueHolderPredmet3, setValuePredmet3] = useState()
-  const [valueHolderPredmet4, setValuePredmet4] = useState()
-  const [valueHolderPredmet5, setValuePredmet5] = useState()
-  const [valueHolderVladanje, setValueVladanje] = useState()
-  const [userAdded,setUserAdded] = useState(false)
+export default function NewUser(props) {
+  const [valueHolderName, setValueName] = useState();
+  const [valueHolderEmail, setValueEmail] = useState();
+  const [valueHolderPassword, setValuePassword] = useState();
+  const [valueHolderOpravdani, setValueOpravdani] = useState();
+  const [valueHolderNeopravdani, setValueNeopravdani] = useState();
+  const [valueHolderPredmet1, setValuePredmet1] = useState();
+  const [valueHolderPredmet2, setValuePredmet2] = useState();
+  const [valueHolderPredmet3, setValuePredmet3] = useState();
+  const [valueHolderPredmet4, setValuePredmet4] = useState();
+  const [valueHolderPredmet5, setValuePredmet5] = useState();
+  const [valueHolderVladanje, setValueVladanje] = useState();
+  const [userAdded, setUserAdded] = useState(false);
   const imePrezimeRef = useRef("");
   const emailRef = useRef("");
   const opravdaniRef = useRef("");
   const neopravdaniRef = useRef("");
-  const permisijaRef = useRef("");
   const predmet1Ref = useRef("");
   const predmet2Ref = useRef("");
   const predmet3Ref = useRef("");
@@ -66,65 +66,50 @@ export default function NewUser() {
   const passwordRef = useRef("");
 
   // this code above is not very good example, I will fix this later, its overkill and I don't need both refs and state.
- const onChangeHandler1 = (event) => {
-  setValueName(event.target.value)
+  const onChangeHandler1 = (event) => {
+    setValueName(event.target.value);
+  };
+  const onChangeHandler2 = (event) => {
+    setValueEmail(event.target.value);
+  };
+  const onChangeHandler3 = (event) => {
+    setValuePassword(event.target.value);
+  };
+  const onChangeHandler4 = (event) => {
+    setValueOpravdani(event.target.value);
+  };
+  const onChangeHandler5 = (event) => {
+    setValueNeopravdani(event.target.value);
+  };
+  const onChangeHandler6 = (event) => {
+    setValuePredmet1(event.target.value);
+  };
+  const onChangeHandler7 = (event) => {
+    setValuePredmet2(event.target.value);
+  };
+  const onChangeHandler8 = (event) => {
+    setValuePredmet3(event.target.value);
+  };
+  const onChangeHandler9 = (event) => {
+    setValuePredmet4(event.target.value);
+  };
+  const onChangeHandler10 = (event) => {
+    setValuePredmet5(event.target.value);
+  };
+  const onChangeHandler11 = (event) => {
+    setValueVladanje(event.target.value);
+  };
 
- }
- const onChangeHandler2 = (event) => {
-  setValueEmail(event.target.value)
-
-}
-const onChangeHandler3 = (event) => {
-  setValuePassword(event.target.value)
-
-}
-const onChangeHandler4 = (event) => {
-  setValueOpravdani(event.target.value)
-
-}
-const onChangeHandler5 = (event) => {
-  setValueNeopravdani(event.target.value)
-
-}
-const onChangeHandler6 = (event) => {
-  setValuePredmet1(event.target.value)
-}
-const onChangeHandler7 = (event) => {
-  setValuePredmet2(event.target.value)
-
-}
-const onChangeHandler8 = (event) => {
-  setValuePredmet3(event.target.value)
-
-}
-const onChangeHandler9 = (event) => {
-  setValuePredmet4(event.target.value)
-
-}
-const onChangeHandler10 = (event) => {
-  setValuePredmet5(event.target.value)
-
-}
-const onChangeHandler11 = (event) => {
-  setValueVladanje(event.target.value)
-
-}
-const onChangePermisija = (event) => {
-  setValuePermisija(event.target.value)
-
-}
   const handleSubmit = (event) => {
     event.preventDefault();
-    const predmet1 = predmet1Ref.current.value + ",";
-    const predmet2 = predmet2Ref.current.value + ",";
-    const predmet3 = predmet3Ref.current.value + ",";
-    const predmet4 = predmet4Ref.current.value + ",";
-    const predmet5 = predmet5Ref.current.value + ",";
+    const predmet1 = valueHolderPredmet1 + ",";
+    const predmet2 = valueHolderPredmet2 + ",";
+    const predmet3 = valueHolderPredmet3 + ",";
+    const predmet4 = valueHolderPredmet4 + ",";
+    const predmet5 = valueHolderPredmet5 + ",";
     const ocjene = [predmet1, predmet2, predmet3, predmet4, predmet5];
     let emailInput = emailRef.current.value;
     let passwordInput = passwordRef.current.value;
-
-    console.log(passwordRef.current.value);
 
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyApi8lyZo32hpuecVE7PCXW7UgLBRTSEoI",
@@ -149,27 +134,26 @@ const onChangePermisija = (event) => {
               Ime_Prezime: imePrezimeRef.current.value,
               Izostanci_Opravdani: opravdaniRef.current.value,
               Izostanci_nepravdani: neopravdaniRef.current.value,
-              Permisija: permisijaRef.current.value,
+              Permisija: "ucenik",
               Predmeti_Ocjene: ocjene,
               vladanje: vladanjeRef.current.value,
               email: emailRef.current.value,
             },
             emailRef.current.value
           );
-          setValueName("")
-          setValueEmail("")
-          setValuePassword("")
-          setValueOpravdani("")
-          setValueNeopravdani("")
-          setValuePredmet1("")
-          setValuePredmet2("")
-          setValuePredmet3("")
-          setValuePredmet4("")
-          setValuePredmet5("")
-          setValuePermisija("")
-          setValueVladanje("")
+          setValueName("");
+          setValueEmail("");
+          setValuePassword("");
+          setValueOpravdani("");
+          setValueNeopravdani("");
+          setValuePredmet1(" ");
+          setValuePredmet2(" ");
+          setValuePredmet3(" ");
+          setValuePredmet4(" ");
+          setValuePredmet5(" ");
+          setValueVladanje(" ");
 
-          setUserAdded(true)
+          setUserAdded(true);
         } else {
           return res.json().then((data) => {
             let errorMessage = "Authentification failed";
@@ -269,64 +253,123 @@ const onChangePermisija = (event) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Permisija"
-                  inputRef={permisijaRef}
-                  value={valueHolderPermisija}
-                  onChange={onChangePermisija}
-                />
+                <div>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Izaberi predmet br. 1 :
+                  </InputLabel>
+                  <Select
+                    value={valueHolderPredmet1}
+                    ref={predmet1Ref}
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    onChange={onChangeHandler6}
+                    label="predmet1"
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {console.log(props)}
+                    {props.predmeti.map((predmet) => (
+                      <MenuItem value={predmet.name}>{predmet.name}</MenuItem>
+                    ))}
+                  </Select>
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Predmet br 1."
-                  inputRef={predmet1Ref}
-                  value={valueHolderPredmet1}
-                  onChange={onChangeHandler6}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Predmet br 2."
-                  inputRef={predmet2Ref}
+                <div>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Izaberi predmet br. 2 :
+                  </InputLabel>
+                  <Select
                   value={valueHolderPredmet2}
-                  onChange={onChangeHandler7}
-                />
+                    ref={predmet2Ref}
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    onChange={onChangeHandler7}
+                    label="predmet2"
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {console.log(props)}
+                    {props.predmeti.map((predmet) => (
+                      <MenuItem value={predmet.name}>{predmet.name}</MenuItem>
+                    ))}
+                  </Select>
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Predmet br 3."
-                  inputRef={predmet3Ref}
+                <div>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Izaberi predmet br. 3 :
+                  </InputLabel>
+                  <Select
                   value={valueHolderPredmet3}
-                  onChange={onChangeHandler8}
-                />
+                    ref={predmet3Ref}
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    onChange={onChangeHandler8}
+                    label="predmet3"
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {console.log(props)}
+                    {props.predmeti.map((predmet) => (
+                      <MenuItem value={predmet.name}>{predmet.name}</MenuItem>
+                    ))}
+                  </Select>
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Predmet br 4."
-                  inputRef={predmet4Ref}
+                <div>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Izaberi predmet br. 4 :
+                  </InputLabel>
+                  <Select
                   value={valueHolderPredmet4}
-                  onChange={onChangeHandler9}
-                />
+                    ref={predmet4Ref}
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    onChange={onChangeHandler9}
+                    label="predmet4"
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {console.log(props)}
+                    {props.predmeti.map((predmet) => (
+                      <MenuItem value={predmet.name}>{predmet.name}</MenuItem>
+                    ))}
+                  </Select>
+                </div>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Predmet br 5."
-                  inputRef={predmet5Ref}
-                  value={valueHolderPredmet5}
-                  onChange={onChangeHandler10}
-                />
+                <div>
+                  <InputLabel id="demo-simple-select-autowidth-label">
+                    Izaberi predmet br. 5 :
+                  </InputLabel>
+                  <Select
+                    value={valueHolderPredmet5}
+                    ref={predmet5Ref}
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    onChange={onChangeHandler10}
+                    label="predmet5"
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    {props.predmeti.map((predmet) => (
+                      <MenuItem value={predmet.name}>{predmet.name}</MenuItem>
+                    ))}
+                  </Select>
+                </div>
               </Grid>
               <Grid item xs={12}>
                 <TextField

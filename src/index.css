@@ -41,6 +41,9 @@ code {
   border-width: thin;
   min-height: 16rem;
 }
+.cardUser > p {
+  margin: 5px;
+}
 .cardUser:hover {
   box-shadow: 5px 5px 5px #c9c9c9;
   border-color: #dad7d7;
@@ -171,9 +174,9 @@ code {
   height: 50px;
   border-radius: 50%;
   background-color: #1976d2;
-  position:absolute;
-  bottom: 3rem;
-  right: 1rem;
+  position:relative;
+  bottom: 1rem;
+  left: 12rem;
   border: none;
   justify-content: center;
   cursor: pointer;

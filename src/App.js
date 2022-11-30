@@ -28,7 +28,6 @@ function App() {
         element: (
           <Fragment>
             <PersistentDrawerLeft />
-            <CreateNewUser />
           </Fragment>
         ),
       },
@@ -53,7 +52,6 @@ function App() {
         element: (
           <Fragment>
             <PersistentDrawerLeft></PersistentDrawerLeft>
-            <NewTeacher></NewTeacher>
           </Fragment>
         ),
       },
@@ -82,6 +80,14 @@ function App() {
         ),
       },
       {
+        path: "/admin/raspored",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
         path: "/admin/noviPredmet",
         element: (
           <Fragment>
@@ -89,8 +95,17 @@ function App() {
           </Fragment>
         ),
       }
-    ]);
-  } else {
+    ]); 
+  } else if(isLogged === "ucenik" && isAuthentificated){
+    router = createBrowserRouter([
+      {
+        path: "/ucenik",
+        element: <PersistentDrawerLeft></PersistentDrawerLeft>,
+      }])
+  }
+  
+  
+  else {
     router = createBrowserRouter([
       {
         path: "/",

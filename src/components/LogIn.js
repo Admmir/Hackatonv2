@@ -65,6 +65,10 @@ export default function SignIn() {
             dispatch(ucenikActions.isLogged("admin"));
             dispatch(ucenikActions.isAuthentificated());
             navigate("/admin");
+          }else{
+            dispatch(ucenikActions.isLogged("ucenik"));
+            dispatch(ucenikActions.isAuthentificated());
+            navigate("/ucenik")
           }
         } else {
           return res.json().then((data) => {

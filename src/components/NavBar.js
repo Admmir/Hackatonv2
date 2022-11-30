@@ -31,11 +31,15 @@ import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import Help from "./Help.js";
 import CreateNews from "./CreateNews.js";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 import { useDispatch } from "react-redux";
 import { ucenikActions } from "../store/ucenik-slice";
 import CreateSchedule from "./CreateSchedule.js";
 import CreateSubject from "./CreateSubject.js";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import ScheduleList from "./ScheduleList.js";
+import CreateNewUser from "./CreateNewUser.js";
+import NewTeacher from "./CreateNewTeacher.js";
 
 const drawerWidth = 240;
 
@@ -101,6 +105,10 @@ export function createDoc4(newDataObject) {
   const ref = firebase.firestore().collection("Predmeti").doc();
   ref.set(newDataObject);
 }
+export function createDoc5(newDataObject) {
+  const ref = firebase.firestore().collection("Rasporedi").doc();
+  ref.set(newDataObject);
+}
 export function deleteUcitelj(docx, id) {
   const ref = firebase.firestore().collection("Ucitelj").doc(id);
   ref.delete().catch((err) => {
@@ -119,11 +127,14 @@ export function deleteNovost(id) {
     alert(err);
   });
 }
+export function editUcenik(updatedObj) {
+  const ref = firebase.firestore().collection("Ucenik").doc(updatedObj.email);
+  ref.update(updatedObj).catch((err) => {
+    alert(err);
+  });
+}
 export default function PersistentDrawerLeft() {
-  
-
   const dispatch = useDispatch();
-  
 
   let location = useLocation();
 
@@ -134,7 +145,6 @@ export default function PersistentDrawerLeft() {
   const [data, setData] = useState([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  
 
   function getData() {
     ref.onSnapshot((QuerySnapshot) => {
@@ -147,7 +157,6 @@ export default function PersistentDrawerLeft() {
         items.push(newObj);
       });
       setData(items);
-      
     });
   }
 
@@ -167,7 +176,6 @@ export default function PersistentDrawerLeft() {
         items.push(doc.data());
       });
       setDataUcenik(items);
-      
     });
   }
 
@@ -187,7 +195,6 @@ export default function PersistentDrawerLeft() {
         items.push(doc.data());
       });
       setDataUcitelj(items);
-      
     });
   }
 
@@ -206,12 +213,29 @@ export default function PersistentDrawerLeft() {
         items.push(doc.data());
       });
       setDataPredmet(items);
-      
     });
   }
 
   useEffect(() => {
     getDataPredmet();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const raspored = firebase.firestore().collection("Rasporedi");
+
+  const [dataRaspored, setDataRaspored] = useState([]);
+
+  function getDataRaspored() {
+    raspored.onSnapshot((QuerySnapshot) => {
+      const items = [];
+      QuerySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setDataRaspored(items);
+    });
+  }
+
+  useEffect(() => {
+    getDataRaspored();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -228,7 +252,7 @@ export default function PersistentDrawerLeft() {
 
   const logOutHandler = () => {
     dispatch(ucenikActions.isAuthentificated());
-  }
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -303,6 +327,10 @@ export default function PersistentDrawerLeft() {
             <CalendarMonthIcon></CalendarMonthIcon>
             <span className="marginLeft5">Napravi raspored</span>
           </Link>
+          <Link to={"/admin/raspored"} className="center">
+            <DateRangeIcon></DateRangeIcon>
+            <span className="marginLeft5">Lista rasporeda</span>
+          </Link>
           <Link to={"/admin/pomoc"} className="center">
             <HelpCenterIcon></HelpCenterIcon>
             <span className="marginLeft5">Pomoć</span>
@@ -317,7 +345,7 @@ export default function PersistentDrawerLeft() {
           className="margin10"
           href="mailto: admirmehmedovic58@gmail.com"
         >
-          Kontaktiraj podršku
+          Podrska
         </Button>
       </Drawer>
       <Main open={open}>
@@ -344,6 +372,8 @@ export default function PersistentDrawerLeft() {
           {location.pathname === "/admin" && (
             <CreateNewsCard className="margin10"></CreateNewsCard>
           )}
+          {location.pathname === "/admin/createUser" && <CreateNewUser predmeti={dataPredmet}></CreateNewUser>}
+          {location.pathname === "/admin/createTeacher" && <NewTeacher></NewTeacher>}
           {location.pathname === "/admin/userList" &&
             dataUcenik.map((user) => {
               return <UserCard key={user.email} props={user} />;
@@ -356,8 +386,16 @@ export default function PersistentDrawerLeft() {
           {location.pathname === "/admin/kreirajNovost" && (
             <CreateNews></CreateNews>
           )}
-          {location.pathname === "/admin/napraviRaspored" && <CreateSchedule props={dataPredmet}></CreateSchedule> }
-          {location.pathname === "/admin/noviPredmet" && <CreateSubject props={dataPredmet}></CreateSubject>}
+          {location.pathname === "/admin/napraviRaspored" && (
+            <CreateSchedule props={dataPredmet}></CreateSchedule>
+          )}
+          {location.pathname === "/admin/noviPredmet" && (
+            <CreateSubject props={dataPredmet}></CreateSubject>
+          )}
+          {location.pathname === "/admin/raspored" &&
+            dataRaspored.map((raspored1) => {
+              return <ScheduleList props={raspored1}></ScheduleList>;
+            })}
         </Grid>
       </Main>
     </Box>
