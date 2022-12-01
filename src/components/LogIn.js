@@ -64,11 +64,11 @@ export default function SignIn() {
           if (enteredEmail === "admin@gmail.com") {
             dispatch(ucenikActions.isLogged("admin"));
             dispatch(ucenikActions.isAuthentificated());
-            navigate("/admin");
+            navigate("/novosti");
           }else{
             dispatch(ucenikActions.isLogged("ucenik"));
             dispatch(ucenikActions.isAuthentificated());
-            navigate("/ucenik")
+            navigate("/novosti")
           }
         } else {
           return res.json().then((data) => {

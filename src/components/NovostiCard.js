@@ -22,8 +22,8 @@ export default function NovostiCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="outlined" size="small">Edit</Button>
-        <Button onClick={onDeleteHandler} variant="outlined" color="error" size="small">Delete</Button>
+        {props.log === "admin" && <Button variant="outlined" size="small">Edit</Button>}
+        {props.log === "admin" &&<Button onClick={onDeleteHandler} variant="outlined" color="error" size="small">Delete</Button>}
       </CardActions>
     </Card>
   );

@@ -4,15 +4,15 @@ import PersistentDrawerLeft from "../src/components/NavBar";
 import React, { Fragment } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeAdmin from "./components/HomeAdmin";
-import CreateNewUser from "./components/CreateNewUser";
-import NewTeacher from "./components/CreateNewTeacher";
 import { useSelector } from "react-redux";
 
 let router;
 
 function App() {
   const isLogged = useSelector((state) => state.userData.user);
-  const isAuthentificated = useSelector((state) => state.userData.authentificated);
+  const isAuthentificated = useSelector(
+    (state) => state.userData.authentificated
+  );
   if (isLogged === "admin" && isAuthentificated) {
     router = createBrowserRouter([
       {
@@ -20,7 +20,7 @@ function App() {
         element: <SignIn></SignIn>,
       },
       {
-        path: "/admin",
+        path: "/novosti",
         element: <HomeAdmin />,
       },
       {
@@ -80,7 +80,7 @@ function App() {
         ),
       },
       {
-        path: "/admin/raspored",
+        path: "/raspored",
         element: (
           <Fragment>
             <PersistentDrawerLeft></PersistentDrawerLeft>
@@ -94,18 +94,32 @@ function App() {
             <PersistentDrawerLeft></PersistentDrawerLeft>
           </Fragment>
         ),
-      }
-    ]); 
-  } else if(isLogged === "ucenik" && isAuthentificated){
+      },
+    ]);
+  } else if (isLogged === "ucenik" && isAuthentificated) {
     router = createBrowserRouter([
       {
         path: "/ucenik",
         element: <PersistentDrawerLeft></PersistentDrawerLeft>,
-      }])
-  }
-  
-  
-  else {
+      },
+      {
+        path: "/novosti",
+        element: <PersistentDrawerLeft></PersistentDrawerLeft>,
+      },
+      {
+        path: "/raspored",
+        element: (
+          <Fragment>
+            <PersistentDrawerLeft></PersistentDrawerLeft>
+          </Fragment>
+        ),
+      },
+      {
+        path: "/profile",
+        element: <PersistentDrawerLeft></PersistentDrawerLeft>,
+      }
+    ]);
+  } else {
     router = createBrowserRouter([
       {
         path: "/",

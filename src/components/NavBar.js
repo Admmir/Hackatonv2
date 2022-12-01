@@ -32,7 +32,7 @@ import Help from "./Help.js";
 import CreateNews from "./CreateNews.js";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ucenikActions } from "../store/ucenik-slice";
 import CreateSchedule from "./CreateSchedule.js";
 import CreateSubject from "./CreateSubject.js";
@@ -40,6 +40,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import ScheduleList from "./ScheduleList.js";
 import CreateNewUser from "./CreateNewUser.js";
 import NewTeacher from "./CreateNewTeacher.js";
+import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;
 
@@ -134,6 +135,7 @@ export function editUcenik(updatedObj) {
   });
 }
 export default function PersistentDrawerLeft() {
+  const isLogged = useSelector((state) => state.userData.user);
   const dispatch = useDispatch();
 
   let location = useLocation();
@@ -297,12 +299,20 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List className="sidebarItems">
-          <Link to={"/admin"} className="center">
+          <Link to={"/novosti"} className="center">
             <NewspaperIcon></NewspaperIcon>
             <span className="marginLeft5">Novosti</span>
           </Link>
-
-          <Link to={"/admin/createUser"} className="center">
+          {isLogged === "ucenik" && <React.Fragment><Link to={"/profile"} className="center">
+            <PersonIcon></PersonIcon>
+            <span className="marginLeft5">Pregledaj svoj profil</span>
+          </Link>
+          <Link to={"/raspored"} className="center">
+            <DateRangeIcon></DateRangeIcon>
+            <span className="marginLeft5">Lista rasporeda</span>
+          </Link>
+          </React.Fragment> }   
+          {isLogged === "admin" && <React.Fragment><Link to={"/admin/createUser"} className="center">
             <AddCircleOutlineIcon></AddCircleOutlineIcon>{" "}
             <span className="marginLeft5">Kreiraj novog učenika</span>
           </Link>
@@ -327,7 +337,7 @@ export default function PersistentDrawerLeft() {
             <CalendarMonthIcon></CalendarMonthIcon>
             <span className="marginLeft5">Napravi raspored</span>
           </Link>
-          <Link to={"/admin/raspored"} className="center">
+          <Link to={"/raspored"} className="center">
             <DateRangeIcon></DateRangeIcon>
             <span className="marginLeft5">Lista rasporeda</span>
           </Link>
@@ -335,6 +345,7 @@ export default function PersistentDrawerLeft() {
             <HelpCenterIcon></HelpCenterIcon>
             <span className="marginLeft5">Pomoć</span>
           </Link>
+          </React.Fragment>}
         </List>
         <Divider />
         <Button onClick={logOutHandler} variant="outlined" className="margin10">
@@ -357,7 +368,7 @@ export default function PersistentDrawerLeft() {
           rowSpacing={1}
           columnSpacing={1}
         >
-          {location.pathname === "/admin" &&
+          {location.pathname === "/novosti" &&
             data.map((novosti) => {
               return (
                 <NovostiCard
@@ -366,10 +377,11 @@ export default function PersistentDrawerLeft() {
                   xs={6}
                   key={novosti.title}
                   props={novosti}
+                  log={isLogged}
                 />
               );
             })}
-          {location.pathname === "/admin" && (
+          {location.pathname === "/novosti" && isLogged ==="admin" &&  (
             <CreateNewsCard className="margin10"></CreateNewsCard>
           )}
           {location.pathname === "/admin/createUser" && <CreateNewUser predmeti={dataPredmet}></CreateNewUser>}
@@ -392,7 +404,7 @@ export default function PersistentDrawerLeft() {
           {location.pathname === "/admin/noviPredmet" && (
             <CreateSubject props={dataPredmet}></CreateSubject>
           )}
-          {location.pathname === "/admin/raspored" &&
+          {location.pathname === "/raspored" &&
             dataRaspored.map((raspored1) => {
               return <ScheduleList props={raspored1}></ScheduleList>;
             })}
